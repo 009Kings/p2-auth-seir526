@@ -21,8 +21,11 @@ router.post('/register', function(req, res) {
     }).then(function([user, created]) {
         // if user was created
         if (created) {
-            // authenticate user and start authorization process
             console.log("User created! 🎉");
+            passport.authenticate('local', {
+                successRedirect: '/',
+                successFlash: 'Thanks for signing up!'
+            })(req, res);
             res.redirect("/");
         } else {
             console.log("User email already exists 🚫.");
@@ -66,7 +69,7 @@ router.post('/login', function(req, res, next) {
                 return res.redirect('/');
             })
         })
-    })
+    })(req, res, next);
 })
 
 router.post('/login', passport.authenticate('local', {
