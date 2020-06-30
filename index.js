@@ -5,10 +5,10 @@ const ejsLayouts = require("express-ejs-layouts");
 const helmet = require('helmet');
 const session = require("express-session");
 const flash = require("flash");
-const passport = require('./config/ppConfig')
-const db = require('./models')
-// want add a link to our customer middleware for isLoggedIn
-const SequelizeStore = require('connect-session-sequelize')(session.Store)
+const passport = require('./config/ppConfig');
+const db = require('./models');
+const isLoggedIn = require('./middleware/isLoggedIn');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
 // app setup
@@ -51,6 +51,10 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res) {
     // check to see if user logged in
     res.render('index');
+})
+
+app.get('/profile', isLoggedIn, function(req, res) {
+    res.render('profile', {test: "another test"});
 })
 
 // include auth controller
