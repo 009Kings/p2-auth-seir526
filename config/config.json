@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "project2_express",
+    "database": "p2authseir526",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
